@@ -4,7 +4,7 @@
     <div v-show="showGoodList" class="spotAndUnspot">
       <div class="good_list">
         <div class="good_list_item" v-for="item in goodList">
-          <a href="#">
+          <router-link :to="{path:'/goodDetails',query:{proId:item.id}}">
             <img :src="'http://47.92.122.228:8021' + item.afwindProducts.afwindProductPic.url">
             <div style="padding: 20px;height: 60px">
               <span class="spotGoodPrice">￥{{ item.price }}</span>
@@ -14,7 +14,7 @@
             </div>
             <p>库存：{{ item.stock }}</p>
             <el-button class="addCartBtn">加入购物车</el-button>
-          </a>
+          </router-link>
         </div>
       </div>
     </div>
@@ -22,7 +22,7 @@
     <div v-show="showSpecialGoodList" class="brandGoodList">
       <div class="good_list">
         <div class="good_list_item" v-for="(item,index) in brandGoodsList" :key="index">
-          <a href="#">
+           <router-link :to="{path:'/goodDetails',query:{proId:item.id}}">
             <img :src="'http://47.92.122.228:8021'+ item.afwindProductPic.url">
             <div style="padding: 20px;height: 60px">
               <span class="price">￥{{ item.price }}</span>
@@ -32,7 +32,7 @@
             </div>
             <p>库存：{{ item.stock }}</p>
             <el-button class="addCartBtn" @click="cartStatus()">加入购物车</el-button>
-          </a>
+          </router-link>
         </div>
       </div>
     </div>
@@ -51,7 +51,7 @@
     <div v-show="showGoodsFromAside">
       <div class="good_list">
         <div class="good_list_item" v-for="item in goodsFromAside">
-          <a href="#">
+           <router-link :to="{path:'/goodDetails',query:{proId:item.id}}">
             <img :src="'http://47.92.122.228:8021' + item.afwindProducts.afwindProductPic.url">
             <div style="padding: 20px;height: 60px">
               <span class="spotGoodPrice">￥{{ item.price }}</span>
@@ -61,7 +61,7 @@
             </div>
             <p>库存：{{ item.stock }}</p>
             <el-button class="addCartBtn">加入购物车</el-button>
-          </a>
+          </router-link >
         </div>
       </div>
     </div>
@@ -157,11 +157,11 @@ export default{
     this.proListObj.pageNum = 1;
     this.proListObj.brandId = '';
 
-    if (this.$route.query.saleType === "现货"){
-      this.spotObj.saleType = "现货";
+    if (this.$route.query.saleType === "1"){
+      this.spotObj.saleType = "1";
       this.spotOrUnspotFilter(this.spotObj.saleType,this.spotObj.type,this.spotObj.status,this.spotObj.pageNum,'',this.spotObj.brandId);
-    }else if(this.$route.query.saleType === "非现货"){
-      this.spotObj.saleType = "非现货";
+    }else if(this.$route.query.saleType === "2"){
+      this.spotObj.saleType = "2";
       this.spotOrUnspotFilter(this.spotObj.saleType,this.spotObj.type,this.spotObj.status,this.spotObj.pageNum,'',this.spotObj.brandId);
     }else if(this.$route.query.saleType === "品牌"){
       this.getTheBrand();
@@ -175,6 +175,7 @@ export default{
       this.proListObj.categoryType = this.$route.query.proLevelFromNav;
       this.showGoodsFromAside = true;
       this.showGoodList = false;
+      this.showBrandList = false;//添加
       this.getProsFromAside(this.proListObj.category, this.proListObj.stock, this.proListObj.categoryType, this.proListObj.type, this.proListObj.status, this.proListObj.pageNum, this.proListObj.brandId);
     }
   },
@@ -237,7 +238,7 @@ export default{
     },
 //    通过侧边栏请求商品列表
     getProsFromAside(theCategory,theStock,theCategoryType,theType,theStatus,thePageNum,theBrandId){
-      this.$axios.get('/AfwindProductcommerce/getThirdProductsRelatesByThirdCategoryBySaleVAndStockUpAndDown?' +
+      this.$axios.get('AfwindProductcommerce/getThirdProductsRelatesByThirdCategoryBySaleVAndStockUpAndDown?' +
         '&category=' + theCategory +
         '&categoryType=' + theCategoryType +
         '&type=' + theType +
@@ -277,12 +278,12 @@ export default{
     },
 //    通过导航栏获取商品列表
     getTheGoodsFromNav(){
-      if (this.$route.query.saleType === "现货"){
-        this.spotObj.saleType = "现货";
+      if (this.$route.query.saleType === "1"){
+        this.spotObj.saleType = "1";
         this.spotOrUnspotFilter(this.spotObj.saleType,this.spotObj.type,this.spotObj.status,this.spotObj.pageNum,'',this.spotObj.brandId);
         this.getBrandListsFromTab(this.spotObj.saleType);
-      }else if(this.$route.query.saleType === "非现货"){
-        this.spotObj.saleType = "非现货";
+      }else if(this.$route.query.saleType === "2"){
+        this.spotObj.saleType = "2";
         this.spotOrUnspotFilter(this.spotObj.saleType,this.spotObj.type,this.spotObj.status,this.spotObj.pageNum,'',this.spotObj.brandId);
         this.getBrandListsFromTab(this.spotObj.saleType);
       }else if(this.$route.query.saleType === "品牌"){
@@ -295,6 +296,7 @@ export default{
         this.proListObj.categoryType = this.$route.query.proLevelFromNav;
         this.showGoodsFromAside = true;
         this.showGoodList = false;
+         this.showBrandList = false;//添加
         this.getProsFromAside(this.proListObj.category, this.proListObj.stock, this.proListObj.categoryType, this.proListObj.type, this.proListObj.status, this.proListObj.pageNum, this.proListObj.brandId);
       }
     },
@@ -376,9 +378,9 @@ export default{
     sortASC(){
       this.spotObj.type = "numType";
       this.proListObj.type = "numType";
-      if (this.$route.query.saleType === "现货"){
+      if (this.$route.query.saleType === "1"){
         this.theSortASC();
-      }else if(this.$route.query.saleType === "非现货"){
+      }else if(this.$route.query.saleType === "2"){
         this.theSortASC();
       }else if(this.$route.query.proId && this.$route.query.proLevel){
         this.asideSortASC();
@@ -390,9 +392,9 @@ export default{
     timeASC(){
       this.spotObj.type = "cycleType";
       this.proListObj.type = "cycleType";
-      if(this.$route.query.saleType === "现货"){
+      if(this.$route.query.saleType === "1"){
         this.theTimeASC();
-      }else if(this.$route.query.saleType === "非现货"){
+      }else if(this.$route.query.saleType === "2"){
         this.theTimeASC();
       }else if(this.$route.query.proId && this.$route.query.proLevel){
         this.asideTimeASC();
@@ -404,9 +406,9 @@ export default{
     priceASC(){
       this.spotObj.type = "priceType";
       this.proListObj.type = "priceType";
-      if(this.$route.query.saleType === "现货"){
+      if(this.$route.query.saleType === "1"){
         this.thePriceASC();
-      }else if(this.$route.query.saleType === "非现货"){
+      }else if(this.$route.query.saleType === "2"){
         this.thePriceASC();
       }else if(this.$route.query.proId && this.$route.query.proLevel){
         this.asidePriceASC();

@@ -158,15 +158,9 @@
             data: "XXX"
           }
         ],
-        imgUrl: [
-          { index:1, url: require('./img/goods1.png') },
-          { index:2,  url: require('./img/goods2.png') },
-          { index:3,  url: require('./img/goods3.png') },
-          { index:4, url: require('./img/goods4.png') },
-          { index:5, url: require('./img/goods5.png') },
-        ],
-        ImgUrl:require('./img/goods1.png'),
-        BigImg:require('./img/goods1.png'),
+        imgUrl: [],
+        ImgUrl:'',
+        BigImg:'',
         activeName: 'first',
 //        商品详情参数
         commerceName:'',
@@ -186,7 +180,11 @@
         this.$axios.get('/productcommerce/selectCommerceProductInfo?id='+ this.$route.query.proId)
           .then((res) => {
             let myData = JSON.parse(res.data.data)
-//            console.log(myData)
+              console.log(myData)
+						for(let i = 0;i<myData.afwindProducts.productsPicList.length; i++){
+							this.imgUrl.push('http://47.92.122.228:8021' + myData.afwindProducts.productsPicList[i].url)
+						}
+						this.ImgUrl = this.imgUrl[0];
             this.commerceName = myData.commerceName;
             this.price = myData.price;
             this.code = myData.code;
@@ -195,7 +193,7 @@
             this.cycle = myData.cycle;
             this.goodsDetails = myData.details.split(',');
             this.specificationParams = myData.afwindProductAttribute
-//          console.log(this.goodsDetails);
+            console.log(this.goodsDetails);
           }).catch(() => {
           console.log("商品详情数据请求失败")
         })

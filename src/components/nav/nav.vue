@@ -5,8 +5,8 @@
         <span class="allClassify" @mouseover="openMenu" @mouseout="closeMenu"><i class="el-icon-menu"></i>全部商品分类</span>
         <div>
           <span><router-link to="/">首页</router-link></span>
-          <span><router-link tag="li" :to="{path:'/goodsList',query:{saleType:'现货'}}">现货中心</router-link></span>
-          <span><router-link tag="li" :to="{path:'/goodsList',query:{saleType:'非现货'}}">非现货中心</router-link></span>
+          <span><router-link tag="li" :to="{path:'/goodsList',query:{saleType:'1'}}">现货中心</router-link></span>
+          <span><router-link tag="li" :to="{path:'/goodsList',query:{saleType:'2'}}">非现货中心</router-link></span>
           <span><router-link tag="li" :to="{path:'/goodsList',query:{saleType:'品牌'}}">品牌中心</router-link></span>
         </div>
       </div>

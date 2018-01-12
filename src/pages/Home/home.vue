@@ -17,8 +17,8 @@
       </div>
       <div class="navCom_nav">
         <span><router-link tag="li" to="/">首页</router-link></span>
-        <span><router-link tag="li" :to="{path:'/goodsList',query:{saleType:'现货'}}">现货中心</router-link></span>
-        <span><router-link tag="li" :to="{path:'/goodsList',query:{saleType:'非现货'}}">非现货中心</router-link></span>
+        <span><router-link tag="li" :to="{path:'/goodsList',query:{saleType:'1'}}">现货中心</router-link></span>
+        <span><router-link tag="li" :to="{path:'/goodsList',query:{saleType:'2'}}">非现货中心</router-link></span>
         <span><router-link tag="li" :to="{path:'/goodsList',query:{saleType:'品牌'}}">品牌中心</router-link></span>
         <!--<span>5</span>-->
         <!--<span>6</span>-->
@@ -436,7 +436,7 @@
     margin-top: 3%;
     margin-bottom: 3%;
     position: relative;
-    width: 70.5%;
+    width: 90%;
     height: 100px;
     border-top: 1px solid #d4d4d4;
   }

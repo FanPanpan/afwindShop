@@ -21,6 +21,7 @@ import newProducts from '../pages/user/children/productMag/newProducts.vue'
 import onProducts from '../pages/user/children/productMag/onProducts.vue'
 import accountMag from '../pages/user/children/accountMag/accountMag.vue'
 import orderMag from '../pages/user/children/orderMag/order.vue'
+import orderDetails from '../pages/user/children/orderMag/orderDetails.vue'
 import settleMag from '../pages/user/children/settleMag/settleMag.vue'
 import newBrand from '../pages/user/children/brandMag/newBrand.vue'
 import brandList from '../pages/user/children/brandMag/brandList.vue'
@@ -71,6 +72,7 @@ export default new Router({
         {path:'onProducts',name:'已上架商品',component:onProducts},
         {path:'accountMag',name:'账户管理',component:accountMag},
         {path:'orderMag',name:'订单管理',component:orderMag},
+        {path:'orderDetails',name:'订单详情',component:orderDetails},
         {path:'settleMag',name:'结算管理',component:settleMag},
         {path:'newBrand',name:'新增品牌',component:newBrand},
         {path:'brandList',name:'品牌列表',component:brandList},

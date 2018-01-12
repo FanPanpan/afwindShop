@@ -52,7 +52,6 @@
   import search from '../../common/preciseQuery.vue'
   import myNav from '../../components/nav/nav.vue'
   import goodCards from '../../components/goodCards/goodCards.vue'
-  import goodsListFromAside from '../../components/goodCards/goodsFromAside.vue'
 
   export default {
     components:{
@@ -60,8 +59,7 @@
       myFooter,
       search,
       myNav,
-      goodCards,
-      goodsListFromAside
+      goodCards
     },
     data(){
       return {
@@ -92,10 +90,10 @@
         this.total = 0;
       };
 //      现货非现货
-      if(this.$route.query.saleType === "现货"){
+      if(this.$route.query.saleType === "1"){
         this.showChecked = false;
         this.editBrandInfo(this.$route.query.saleType);
-      }else if(this.$route.query.saleType === "非现货"){
+      }else if(this.$route.query.saleType === "2"){
         this.showChecked = false;
         this.editBrandInfo(this.$route.query.saleType);
       }else if(this.$route.query.saleType === "品牌"){
@@ -145,16 +143,17 @@
             this.showOrHiddenBrandList = false;
             this.brandSort.splice(0,this.brandSort.length);
             this.brandSort= JSON.parse(res.data.data);
+
           }).catch(() => {
           console.log('现货商品分类品牌接口请求失败');
         });
       },
 //      现货 非现货 品牌等导航栏切换
       tabParams(){
-        if(this.$route.query.saleType === "现货"){
+        if(this.$route.query.saleType === "1"){
           this.showListCom = true;
           this.editBrandInfo(this.$route.query.saleType);
-        }else if(this.$route.query.saleType === "非现货"){
+        }else if(this.$route.query.saleType === "2"){
           this.showListCom = true;
           this.editBrandInfo(this.$route.query.saleType);
         }else if(this.$route.query.saleType === "品牌"){
